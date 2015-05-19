@@ -14,7 +14,7 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<form class="navbar-form navbar-left" action="query" method="get">
 				<div class="form-group">
-					<input type="text" name="querystring" placeholder="輸入要查詢藥名或健保碼"
+					<input type="text" name="querystring" placeholder="輸入要查詢藥名"
 						class="form-control">
 				</div>
 				<button type="submit" class="btn btn-success">查詢</button>

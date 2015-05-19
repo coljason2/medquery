@@ -11,24 +11,22 @@
 <body>
 	<jsp:include page="/layout/nav.jsp" />
 	<div class="container">
-		<div class="jumbotron">
-			<table class="table table-striped">
+		<table class="table table-striped">
+			<tr>
+				<td>藥名</td>
+				<td>藥價/庫存</td>
+				<td>健保碼</td>
+				<td>健保價</td>
+			</tr>
+			<c:forEach items="${meds}" var="item">
 				<tr>
-					<td>藥名</td>
-					<td>藥價/庫存</td>
-					<td>健保碼</td>
-					<td>健保價</td>
+					<td>${item.name}</td>
+					<td>${item.isenough}</td>
+					<td>${item.oid}</td>
+					<td>${item.oidprice}</td>
 				</tr>
-				<c:forEach items="${meds}" var="item">
-					<tr>
-						<td>${item.name}</td>
-						<td>${item.isenough}</td>
-						<td>${item.oid}</td>
-						<td>${item.oidprice}</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
+			</c:forEach>
+		</table>
 	</div>
 	<jsp:include page="/layout/foot.jsp" />
 </body>

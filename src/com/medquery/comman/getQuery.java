@@ -3,9 +3,7 @@ package com.medquery.comman;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -20,33 +18,24 @@ import org.jsoup.Jsoup;
 import org.jsoup.Connection.Method;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.mortbay.log.Log;
 
 public class getQuery {
 	final Logger log = Logger.getLogger(getQuery.class.getName());
-	final String USER_AGENT = "Mozilla/5.0";
+	final String getdrug = "http://www.chahwa.com.tw/order.php?act=query&&drug=";
+
 	static final Pattern reUnicode = Pattern.compile("\\\\u([0-9a-zA-Z]{4})");
 	LoginFormData form = new LoginFormData();
 
 	public List<MedEntity> getMedicine(String name) {
 		String cookie = getCookies();
-		log.info("----------------------getQuery----------------------");
 		List<MedEntity> meds = new ArrayList<MedEntity>();
-
-		// Google App Engine 有限制回傳字數改方法
-		// String doc = Jsoup
-		// .connect(
-		// "http://www.chahwa.com.tw/order.php?act=query&&drug="
-		// + name).timeout(10000).cookies(Connect())
-		// .get().select("script").toString();
-		// log.info("size:" + doc.toString().length());
-
-		String parseString = decode1(
+		// 去掉不必要符號文字並解碼
+		String parseString = decode(
 				Getcontext(name, cookie).replace("\\//", "")).replace("\\", "")
 				.replace("}", "").replace("{", "").replace("rn", "");
-
+		// 解析回傳文字內容
 		Document resault = Jsoup.parse(parseString);
-
+		// 取得結果放入Entity
 		for (Element n : resault.getElementsByClass("item_text")) {
 			MedEntity m = new MedEntity();
 			m.setOid(n.getElementsByClass("code").text()); // 健保碼
@@ -62,12 +51,10 @@ public class getQuery {
 	public String Getcontext(String name, String cookiePara) {
 		String context = "";
 
-		String getURL;
 		try {
-			getURL = "http://www.chahwa.com.tw/order.php?act=query&&drug="
-					+ URLEncoder.encode(name, "utf-8");
 
-			URL getUrl = new URL(getURL);
+			URL getUrl = new URL(getdrug + URLEncoder.encode(name, "utf-8"));
+
 			HttpURLConnection connection = (HttpURLConnection) getUrl
 					.openConnection();
 
@@ -83,7 +70,7 @@ public class getQuery {
 
 			String lines;
 			while ((lines = reader.readLine()) != null) {
-				context = context + decode1(lines);
+				context = context + decode(lines);
 			}
 			log.info("html size:" + context.length());
 			log.info("html     :" + context);
@@ -96,7 +83,9 @@ public class getQuery {
 		return context;
 	}
 
-	public String decode1(String s) {
+	// 將UTF-8解碼回來
+	public String decode(String s) {
+
 		Matcher m = reUnicode.matcher(s);
 		StringBuffer sb = new StringBuffer(s.length());
 		while (m.find()) {

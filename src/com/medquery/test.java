@@ -30,8 +30,6 @@ public class test {
 		Map<String, String> cookies = res.cookies();
 		String getURL = "http://www.chahwa.com.tw/order.php?act=query&&drug="
 				+ URLEncoder.encode("泰克", "utf-8");
-		String doc = Jsoup.connect(getURL).timeout(10000).cookies(cookies)
-				.get().select("script").toString();
 
 		URL getUrl = new URL(getURL);
 		// 根據拼湊的URL，打開連接，URL.openConnection函數會根據URL的類型，
