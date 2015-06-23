@@ -9,6 +9,13 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="/source/shim.js"></script>
+<script src="/source/jszip.js"></script>
+<script src="/source/xlsx.js"></script>
+<script src="/source/dist/ods.js"></script>
+<script src="/source/xlsxworker.js"></script>
+<script src="/source/xlsxworker1.js"></script>
+<script src="/source/xlsxworker2.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 html {

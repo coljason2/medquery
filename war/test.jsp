@@ -13,6 +13,10 @@
 	<div class="container">
 		<div class="jumbotron">${test}</div>
 	</div>
+	REAL PATH:
+	<%
+		application.getRealPath("/").toString();
+	%>
 	<jsp:include page="/layout/foot.jsp" />
 </body>
 </html>

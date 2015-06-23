@@ -67,7 +67,6 @@ public class getQuery {
 			// 取得輸入流，並使用Reader讀取
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					connection.getInputStream()));
-
 			String lines;
 			while ((lines = reader.readLine()) != null) {
 				context = context + decode(lines);
@@ -75,7 +74,7 @@ public class getQuery {
 			log.info("html size:" + context.length());
 			log.info("html     :" + context);
 			reader.close();
-			// 斷開連接
+			// 中斷連線
 			connection.disconnect();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -116,6 +115,7 @@ public class getQuery {
 			cookiePara = cookiePara + cookie.toString() + "="
 					+ cookies.get(cookie) + ";";
 		}
+		log.info(cookiePara.toString());
 		return cookiePara;
 	}
 }
